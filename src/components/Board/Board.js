@@ -5,6 +5,15 @@ export default function Board() {
     const [xIsNext, setXIsNext] = useState(true);
     const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
 
+    const winner = calculateWinner(marker);
+    let status;
+
+    if (winner !== null) {
+        status = 'Winner: ' + winner;
+    } else {
+        status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    }
+
     const handleCellClick = (i) => {
         if (marker[i] !== '\u00A0' || calculateWinner(marker) !== null) return;
 
@@ -16,11 +25,14 @@ export default function Board() {
     };
 
     return (
-        <div className="board">
-            <Row firstIndex={0} onCellClick={handleCellClick} marker={marker} />
-            <Row firstIndex={3} onCellClick={handleCellClick} marker={marker} />
-            <Row firstIndex={6} onCellClick={handleCellClick} marker={marker} />
-        </div>
+        <>
+            <div>{status}</div>
+            <div className="board">
+                <Row firstIndex={0} onCellClick={handleCellClick} marker={marker} />
+                <Row firstIndex={3} onCellClick={handleCellClick} marker={marker} />
+                <Row firstIndex={6} onCellClick={handleCellClick} marker={marker} />
+            </div>
+        </>
     );
 }
 
