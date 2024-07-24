@@ -6,6 +6,8 @@ export default function Board() {
     const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
 
     const handleCellClick = (i) => {
+        if (marker[i] !== '\u00A0') return;
+
         const tempMarker = marker.slice();
         tempMarker[i] = (xIsNext) ? 'X' : 'O';
 
