@@ -6,7 +6,7 @@ export default function Board() {
     const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
 
     const handleCellClick = (i) => {
-        if (marker[i] !== '\u00A0') return;
+        if (marker[i] !== '\u00A0' || calculateWinner(marker) !== null) return;
 
         const tempMarker = marker.slice();
         tempMarker[i] = (xIsNext) ? 'X' : 'O';
@@ -34,7 +34,7 @@ function Row({ firstIndex, onCellClick, marker }) {
     );
 }
 
-function calculateWinner(markers) {
+function calculateWinner(marker) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -49,8 +49,8 @@ function calculateWinner(markers) {
     for (const line of lines) {
         const [a, b, c] = line;
 
-        if (markers[a] !== '\u00A0' && markers[a] === markers[b] && markers[a] === markers[c]) {
-            return markers[a];
+        if (marker[a] !== '\u00A0' && marker[a] === marker[b] && marker[a] === marker[c]) {
+            return marker[a];
         }
     }
 
