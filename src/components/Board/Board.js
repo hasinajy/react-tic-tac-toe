@@ -2,11 +2,15 @@ import { useState } from "react";
 import Square from "../Square/Square";
 
 export default function Board() {
+    const [xIsNext, setXIsNext] = useState(true);
     const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
+
     const handleCellClick = (i) => {
         const tempMarker = marker.slice();
-        tempMarker[i] = 'X';
+        tempMarker[i] = (xIsNext) ? 'X' : 'O';
+
         setMarker(tempMarker);
+        setXIsNext(!xIsNext);
     };
 
     return (
