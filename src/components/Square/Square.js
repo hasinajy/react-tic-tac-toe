@@ -1,8 +1,15 @@
+import { useState } from 'react';
 import './square.css'
 
-function Square({ value }) {
+function Square() {
+    const [value, setValue] = useState('\u00A0');
+
+    const handleClick = () => {
+        setValue('X');
+    };
+
     return (
-        <button className="square">{value}</button>
+        <button className="square" onClick={handleClick}>{value}</button>
     );
 }
 

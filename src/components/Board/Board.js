@@ -3,19 +3,19 @@ import Square from "../Square/Square";
 export default function Board() {
     return (
         <div className="board">
-            <Row firstValue={1} />
-            <Row firstValue={4} />
-            <Row firstValue={7} />
+            <Row />
+            <Row />
+            <Row />
         </div>
     );
 }
 
-function Row({ firstValue }) {
+function Row() {
     return (
         <div className="board__row">
-            <Square value={firstValue} />
-            <Square value={firstValue + 1} />
-            <Square value={firstValue + 2} />
+            <Square />
+            <Square />
+            <Square />
         </div>
     );
 }
