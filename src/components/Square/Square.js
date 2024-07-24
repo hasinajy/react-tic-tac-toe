@@ -1,8 +1,8 @@
 import './square.css'
 
-function Square({ value, cellMarker }) {
+function Square({ value, onClick }) {
     return (
-        <button className="square" onClick={cellMarker}>{value}</button>
+        <button className="square" onClick={onClick}>{value}</button>
     );
 }
 

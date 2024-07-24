@@ -3,7 +3,7 @@ import Square from "../Square/Square";
 
 export default function Board() {
     const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
-    const markCell = (i) => {
+    const handleCellClick = (i) => {
         const tempMarker = marker.slice();
         tempMarker[i] = 'X';
         setMarker(tempMarker);
@@ -11,19 +11,19 @@ export default function Board() {
 
     return (
         <div className="board">
-            <Row firstIndex={0} cellMarker={markCell} marker={marker} />
-            <Row firstIndex={3} cellMarker={markCell} marker={marker} />
-            <Row firstIndex={6} cellMarker={markCell} marker={marker} />
+            <Row firstIndex={0} onCellClick={handleCellClick} marker={marker} />
+            <Row firstIndex={3} onCellClick={handleCellClick} marker={marker} />
+            <Row firstIndex={6} onCellClick={handleCellClick} marker={marker} />
         </div>
     );
 }
 
-function Row({ firstIndex, cellMarker, marker }) {
+function Row({ firstIndex, onCellClick, marker }) {
     return (
         <div className="board__row">
-            <Square value={marker[firstIndex]} cellMarker={() => { cellMarker(firstIndex) }} />
-            <Square value={marker[firstIndex + 1]} cellMarker={() => { cellMarker(firstIndex + 1) }} />
-            <Square value={marker[firstIndex + 2]} cellMarker={() => { cellMarker(firstIndex + 2) }} />
+            <Square value={marker[firstIndex]} onClick={() => { onCellClick(firstIndex) }} />
+            <Square value={marker[firstIndex + 1]} onClick={() => { onCellClick(firstIndex + 1) }} />
+            <Square value={marker[firstIndex + 2]} onClick={() => { onCellClick(firstIndex + 2) }} />
         </div>
     );
 }
