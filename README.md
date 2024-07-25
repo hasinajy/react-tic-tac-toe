@@ -35,7 +35,7 @@ npm start
 Any contribution is welcome. Just make a PR and let's make the game more fun.
 
 ## License
-The project is licensed under the MIT License. Refer to the file for more information.
+The project is licensed under the [MIT License](./LICENSE.md). Refer to the file for more information.
 
 ## Author
 Hasina JY
