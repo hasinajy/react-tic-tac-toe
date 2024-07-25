@@ -8,6 +8,13 @@ export default function Game() {
     return (
         <>
             <Board />
+            <History />
         </>
+    );
+}
+
+function History() {
+    return (
+        <div className="history"></div>
     );
 }
