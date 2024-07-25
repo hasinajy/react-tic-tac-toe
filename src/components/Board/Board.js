@@ -1,9 +1,7 @@
-import { useState } from "react";
 import Square from "../Square/Square";
 
-export default function Board() {
-    const [xIsNext, setXIsNext] = useState(true);
-    const [marker, setMarker] = useState(Array(9).fill('\u00A0'));
+export default function Board({ marker, xIsNext, onPlay }) {
+    console.log(marker);
 
     const winner = calculateWinner(marker);
     let status;
@@ -20,8 +18,7 @@ export default function Board() {
         const tempMarker = marker.slice();
         tempMarker[i] = (xIsNext) ? 'X' : 'O';
 
-        setMarker(tempMarker);
-        setXIsNext(!xIsNext);
+        onPlay(tempMarker);
     };
 
     return (
