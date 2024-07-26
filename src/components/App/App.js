@@ -1,7 +1,17 @@
-import Game from "../Game/Game";
+import Board, { XSymbol } from "../Board/Board";
+import GameInfo from "../GameInfo/GameInfo";
 
 export default function App() {
     return (
-        <Game />
+        <>
+            <h1 className="page-title">Tic-Tac-Toe</h1>
+
+            <hr className="sep--large"></hr>
+
+            <div className="container">
+                <Board />
+                <GameInfo />
+            </div>
+        </>
     );
 }
