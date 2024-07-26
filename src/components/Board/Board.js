@@ -11,17 +11,25 @@ export default function Board() {
 function BoardRow() {
     return (
         <div className="board__row">
-            <BoardSquare symbol={'O'} />
-            <BoardSquare symbol={'X'} />
-            <BoardSquare symbol={'O'} />
+            <BoardSquare />
+            <BoardSquare />
+            <BoardSquare />
         </div>
     );
 }
 
 function BoardSquare({ symbol }) {
+    let displayedSymbol = null;
+
+    if (symbol === 'O') {
+        displayedSymbol = <OSymbol />;
+    } else if (symbol === 'X') {
+        displayedSymbol = <XSymbol />;
+    }
+
     return (
         <button className="board__square">
-            {(symbol === 'O') ? <OSymbol /> : <XSymbol />}
+            {displayedSymbol}
         </button>
     );
 }

@@ -1,7 +1,10 @@
 import Board, { XSymbol } from "../Board/Board";
 import GameInfo from "../GameInfo/GameInfo";
 
+const WHITE_SPACE = '\u00A0';
+
 export default function App() {
+
     return (
         <>
             <h1 className="page-title">Tic-Tac-Toe</h1>

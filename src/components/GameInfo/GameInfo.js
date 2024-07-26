@@ -1,3 +1,5 @@
+import { XSymbol } from "../Board/Board";
+
 export default function GameInfo() {
     return (
         <section className="game-info">
