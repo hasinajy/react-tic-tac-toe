@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe - React</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="root">
+        <h1>Tic-Tac-Toe</h1>
+
+        <hr>
+
+        <div class="container">
+            <section class="board">
+                <div class="board__row">
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                </div>
+
+                <div class="board__row">
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                </div>
+
+                <div class="board__row">
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                    <button class="board__square"></button>
+                </div>
+            </section>
+
+            <section class="game-info">
+                <section class="game-info__turns">
+                    <section class="game-info__next-turn">
+                        Next turn: <span class="game-info__turn-symbol"></span>
+                    </section>
+
+                    <hr>
+                    <section class="game-info__history"></section>
+                </section>
+
+                <section class="game-info__board-controls">
+                    <section class="board-controls__move-controls">
+                        <button class="move-controls__undo">
+                            <svg class="move-controls__icon" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                <path
+                                    d="M125.7 160H176c17.7 0 32 14.3 32 32s-14.3 32-32 32H48c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32s32 14.3 32 32v51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z" />
+                            </svg>
+                        </button>
+
+                        <button class="move-controls__redo">
+                            <svg class="move-controls__icon" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                <path
+                                    d="M386.3 160H336c-17.7 0-32 14.3-32 32s14.3 32 32 32H464c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0s-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3s163.8-62.5 226.3 0L386.3 160z" />
+                            </svg>
+                        </button>
+                    </section>
+
+                    <button class="board-controls__new-game">New Game</button>
+                </section>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
