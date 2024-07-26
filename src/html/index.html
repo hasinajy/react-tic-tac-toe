@@ -55,10 +55,20 @@
             <section class="game-info">
                 <section class="game-info__turns">
                     <section class="game-info__next-turn">
-                        Next turn: <span class="game-info__turn-symbol"></span>
+                        Next turn:
+
+                        <span class="game-info__symbol-container">
+                            <svg class="square__symbol square__symbol--X" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 320 320">
+                                <path id="xmark"
+                                    d="M342.454,150.574A32.017,32.017,0,1,0,297.176,105.3L191.925,210.646,86.574,105.4A32.017,32.017,0,0,0,41.3,150.674L146.646,255.925,41.4,361.276a32.017,32.017,0,0,0,45.279,45.279L191.925,301.2,297.276,406.454a32.017,32.017,0,0,0,45.279-45.279L237.2,255.925Z"
+                                    transform="translate(-31.925 -95.925)" />
+                            </svg>
+                        </span>
                     </section>
 
                     <hr>
+
                     <section class="game-info__history"></section>
                 </section>
 

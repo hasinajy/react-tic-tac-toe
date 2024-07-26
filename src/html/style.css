@@ -71,13 +71,15 @@ button:hover {
   height: 100%;
   padding: 1.25rem;
 }
-.board .board__square .square__symbol.square__symbol--X {
+
+.square__symbol--X {
   padding: 1.75rem;
 }
-.board .board__square .square__symbol.square__symbol--X path {
+.square__symbol--X path {
   fill: var(--symbol-color--X);
 }
-.board .board__square .square__symbol.square__symbol--O g {
+
+.square__symbol--O g {
   stroke: var(--symbol-color--O);
 }
 
@@ -90,6 +92,25 @@ button:hover {
 .game-info .game-info__turns {
   flex-grow: 1;
   background-color: green;
+}
+.game-info .game-info__turns .game-info__next-turn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2rem;
+  text-align: left;
+}
+.game-info .game-info__turns .game-info__next-turn .game-info__symbol-container {
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: aqua;
+}
+.game-info .game-info__turns .game-info__next-turn .game-info__symbol-container .square__symbol {
+  aspect-ratio: 1/1;
+  width: 100%;
+  padding: 0 !important;
 }
 .game-info .game-info__board-controls {
   display: flex;
