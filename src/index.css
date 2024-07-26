@@ -1,10 +1,172 @@
 :root {
-    font-size: 1em;
     box-sizing: border-box;
+    font-size: 1em;
+    --accent: white;
+    --symbol-color--X: hsl(0, 40%, 50%);
+    --symbol-color--O: hsl(240, 40%, 50%);
+    --border-radius: .5rem;
+    --gap--xl: 1.5rem;
+    --gap--s: 1rem;
+    --gap--ss: .5rem;
 }
 
 *,
 *::before,
 *::after {
+    margin: 0;
+    padding: 0;
     box-sizing: inherit;
 }
+
+body {
+    height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1100px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#root>*+*:not(hr) {
+    margin-top: var(--gap--xl);
+}
+
+.page-title {
+    font-size: 5rem;
+}
+
+#root>.container {
+    display: flex;
+    gap: var(--gap--xl);
+}
+
+#root>.container .board,
+#root>.container .game-info {
+    flex-basis: 50%;
+}
+
+.board {
+    aspect-ratio: 1/1;
+}
+
+.board .board__row {
+    display: flex;
+    height: 33.3333333333%;
+    overflow: hidden;
+}
+
+.board .board__square {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.board .board__square .square__symbol {
+    width: 100%;
+    height: 100%;
+    padding: 1.25rem;
+}
+
+.square__symbol--X {
+    padding: 1.75rem;
+}
+
+.square__symbol--X path {
+    fill: var(--symbol-color--X);
+}
+
+.square__symbol--O g {
+    stroke: var(--symbol-color--O);
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap--xl);
+}
+
+.game-info .game-info__turns {
+    flex-grow: 1;
+    padding: var(--gap--s);
+    border-radius: var(--border-radius);
+    background-color: lightgray;
+}
+
+.game-info .game-info__turns>*+* {
+    margin-top: var(--gap--s);
+}
+
+.game-info .game-info__turns .game-info__next-turn {
+    display: flex;
+    align-items: center;
+    gap: var(--gap--s);
+    font-size: 2rem;
+    text-align: left;
+}
+
+.game-info .game-info__turns .game-info__next-turn .game-info__symbol-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.75rem;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.game-info .game-info__turns .game-info__next-turn .game-info__symbol-container .square__symbol {
+    aspect-ratio: 1/1;
+    width: 100%;
+    padding: 0 !important;
+}
+
+.game-info .game-info__turns .game-info__history {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap--s);
+}
+
+.game-info .game-info__turns .game-info__history .history__move {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    background-color: white;
+}
+
+.game-info .game-info__board-controls {
+    display: flex;
+    gap: var(--gap--xl);
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.game-info .game-info__board-controls .board-controls__move-controls {
+    display: flex;
+    gap: var(--gap--s);
+}
+
+.game-info .game-info__board-controls .board-controls__move-controls>button {
+    aspect-ratio: 1/1;
+    width: 3rem;
+    padding: var(--gap--ss);
+    border-radius: var(--border-radius);
+}
+
+.game-info .game-info__board-controls .board-controls__new-game {
+    flex-grow: 1;
+    border-radius: var(--border-radius);
+    background-color: var(--accent);
+}
+
+/*# sourceMappingURL=style.css.map */
