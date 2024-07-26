@@ -2,9 +2,12 @@
   box-sizing: border-box;
   font-size: 1em;
   --accent: white;
-  --symbol-color--X: red;
-  --symbol-color--O: blue;
+  --symbol-color--X: hsl(0, 40%, 50%);
+  --symbol-color--O: hsl(240, 40%, 50%);
   --border-radius: .5rem;
+  --gap--xl: 1.5rem;
+  --gap--s: 1rem;
+  --gap--ss: .5rem;
 }
 
 *,
@@ -32,11 +35,10 @@ button:hover {
   height: 100%;
   margin-left: auto;
   margin-right: auto;
-  background-color: brown;
   text-align: center;
 }
 #root > * + *:not(hr) {
-  margin-top: 2rem;
+  margin-top: var(--gap--xl);
 }
 
 .page-title {
@@ -45,7 +47,7 @@ button:hover {
 
 #root > .container {
   display: flex;
-  gap: 2rem;
+  gap: var(--gap--xl);
 }
 #root > .container .board,
 #root > .container .game-info {
@@ -54,7 +56,6 @@ button:hover {
 
 .board {
   aspect-ratio: 1/1;
-  background-color: orange;
 }
 .board .board__row {
   display: flex;
@@ -64,7 +65,7 @@ button:hover {
 .board .board__square {
   aspect-ratio: 1/1;
   overflow: hidden;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
 }
 .board .board__square .square__symbol {
   width: 100%;
@@ -86,47 +87,63 @@ button:hover {
 .game-info {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  background-color: blue;
+  gap: var(--gap--xl);
 }
 .game-info .game-info__turns {
   flex-grow: 1;
-  background-color: green;
+  padding: var(--gap--s);
+  border-radius: var(--border-radius);
+  background-color: lightgray;
+}
+.game-info .game-info__turns > * + * {
+  margin-top: var(--gap--s);
 }
 .game-info .game-info__turns .game-info__next-turn {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--gap--s);
   font-size: 2rem;
   text-align: left;
 }
 .game-info .game-info__turns .game-info__next-turn .game-info__symbol-container {
-  width: 3.5rem;
-  height: 3.5rem;
-  padding: 0.5rem;
-  border-radius: var(--border-radius);
-  background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  border-radius: 50%;
+  background-color: white;
 }
 .game-info .game-info__turns .game-info__next-turn .game-info__symbol-container .square__symbol {
   aspect-ratio: 1/1;
   width: 100%;
   padding: 0 !important;
 }
+.game-info .game-info__turns .game-info__history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap--s);
+}
+.game-info .game-info__turns .game-info__history .history__move {
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  background-color: white;
+}
 .game-info .game-info__board-controls {
   display: flex;
-  gap: 2rem;
+  gap: var(--gap--xl);
   margin-top: auto;
   margin-bottom: 0;
-  background-color: yellow;
 }
 .game-info .game-info__board-controls .board-controls__move-controls {
   display: flex;
-  gap: 1rem;
+  gap: var(--gap--s);
 }
 .game-info .game-info__board-controls .board-controls__move-controls > button {
   aspect-ratio: 1/1;
   width: 3rem;
-  padding: 0.5rem;
+  padding: var(--gap--ss);
   border-radius: var(--border-radius);
 }
 .game-info .game-info__board-controls .board-controls__new-game {
