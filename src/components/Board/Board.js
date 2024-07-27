@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardStateContext } from "../App/App";
+import { BoardStateContext, HandleCellClickContext } from "../App/App";
 
 export default function Board() {
     return (
@@ -13,17 +13,18 @@ export default function Board() {
 
 function BoardRow({ iStart }) {
     const boardState = useContext(BoardStateContext);
+    const handleCellClick = useContext(HandleCellClickContext);
 
     return (
         <div className="board__row">
-            <BoardSquare value={boardState[iStart]} />
-            <BoardSquare value={boardState[iStart + 1]} />
-            <BoardSquare value={boardState[iStart + 2]} />
+            <BoardSquare value={boardState[iStart]} onCellClick={() => { handleCellClick(iStart) }} />
+            <BoardSquare value={boardState[iStart + 1]} onCellClick={() => { handleCellClick(iStart + 1) }} />
+            <BoardSquare value={boardState[iStart + 2]} onCellClick={() => { handleCellClick(iStart + 2) }} />
         </div>
     );
 }
 
-function BoardSquare({ value }) {
+function BoardSquare({ value, onCellClick }) {
     let displayedSymbol = null;
 
     if (value === 'O') {
@@ -33,7 +34,7 @@ function BoardSquare({ value }) {
     }
 
     return (
-        <button className="board__square">
+        <button onClick={onCellClick} className="board__square">
             {displayedSymbol}
         </button>
     );
