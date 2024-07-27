@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardStateContext, HandleCellClickContext, XIsNextContext } from "../App/App";
+import { BoardStateContext, HandleCellClickContext } from "../App/App";
 
 export default function Board() {
     return (

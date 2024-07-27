@@ -10,7 +10,8 @@ const WHITE_SPACE = '\u00A0';
 
 export default function App() {
     const [xIsNext, setXIsNext] = useState(true);
-    const [boardState, setBoardState] = useState(Array(9).fill(WHITE_SPACE));
+    const [history, setHistory] = useState([Array(9).fill(WHITE_SPACE)]);
+    const boardState = history[history.length - 1];
 
     const handleCellClick = useCallback((iCell) => {
         if (boardState[iCell] !== WHITE_SPACE) return;
@@ -23,12 +24,12 @@ export default function App() {
             return;
         }
 
-        const tempBoardState = boardState.slice();
-        tempBoardState[iCell] = (xIsNext) ? 'X' : 'O';
+        const newBoardState = boardState.slice();
+        newBoardState[iCell] = (xIsNext) ? 'X' : 'O';
 
-        setBoardState(tempBoardState);
+        setHistory([...history, newBoardState]);
         setXIsNext(!xIsNext);
-    }, [boardState, xIsNext]);
+    }, [xIsNext]);
 
     return (
         <BoardStateContext.Provider value={boardState}>
