@@ -15,6 +15,14 @@ export default function App() {
     const handleCellClick = useCallback((iCell) => {
         if (boardState[iCell] !== WHITE_SPACE) return;
 
+        const winResult = calculateWinner(boardState);
+
+        if (winResult !== null) {
+            console.log("Win positions: " + winResult.toString());
+            console.log('Winner: ' + ((xIsNext) ? 'X' : 'O'));
+            return;
+        }
+
         const tempBoardState = boardState.slice();
         tempBoardState[iCell] = (xIsNext) ? 'X' : 'O';
 
@@ -38,4 +46,27 @@ export default function App() {
             </HandleCellClickContext.Provider>
         </BoardStateContext.Provider>
     );
+}
+
+function calculateWinner(boardState) {
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    for (const line of lines) {
+        const [a, b, c] = line;
+
+        if (boardState[a] !== WHITE_SPACE && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+            return [a, b, c];
+        }
+    }
+
+    return null;
 }

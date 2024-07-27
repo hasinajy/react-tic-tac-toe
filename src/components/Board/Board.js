@@ -44,7 +44,7 @@ function OSymbol() {
     return (
         <svg className="square__symbol square__symbol--O" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 320">
-            <g id="Ellipse_1" data-name="Ellipse 1" fill="none" stroke="#000" stroke-width="64">
+            <g id="Ellipse_1" data-name="Ellipse 1" fill="none" stroke="#000" strokeWidth="64">
                 <circle cx="160" cy="160" r="160" stroke="none" />
                 <circle cx="160" cy="160" r="128" fill="none" />
             </g>
