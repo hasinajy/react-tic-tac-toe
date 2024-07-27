@@ -40,7 +40,7 @@ function BoardSquare({ value, onCellClick }) {
     );
 }
 
-function OSymbol() {
+export function OSymbol() {
     return (
         <svg className="square__symbol square__symbol--O" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 320">

@@ -1,4 +1,6 @@
-import { XSymbol } from "../Board/Board";
+import { useContext } from "react";
+import { OSymbol, XSymbol } from "../Board/Board";
+import { XIsNextContext } from "../App/App";
 
 export default function GameInfo() {
     return (
@@ -20,9 +22,11 @@ function TurnInfo() {
 }
 
 function NextTurn() {
+    const xIsNext = useContext(XIsNextContext);
+
     return (
         <section className="game-info__next-turn">
-            Next turn:<span className="game-info__symbol-container"><XSymbol /></span>
+            Next turn:<span className="game-info__symbol-container">{(xIsNext) ? <XSymbol /> : <OSymbol />}</span>
         </section>
     );
 }
