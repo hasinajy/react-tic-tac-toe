@@ -1,29 +1,34 @@
+import { useContext } from "react";
+import { BoardStateContext } from "../App/App";
+
 export default function Board() {
     return (
         <section className="board">
-            <BoardRow />
-            <BoardRow />
-            <BoardRow />
+            <BoardRow iStart={0} />
+            <BoardRow iStart={3} />
+            <BoardRow iStart={6} />
         </section>
     );
 }
 
-function BoardRow() {
+function BoardRow({ iStart }) {
+    const boardState = useContext(BoardStateContext);
+
     return (
         <div className="board__row">
-            <BoardSquare />
-            <BoardSquare />
-            <BoardSquare />
+            <BoardSquare value={boardState[iStart]} />
+            <BoardSquare value={boardState[iStart + 1]} />
+            <BoardSquare value={boardState[iStart + 2]} />
         </div>
     );
 }
 
-function BoardSquare({ symbol }) {
+function BoardSquare({ value }) {
     let displayedSymbol = null;
 
-    if (symbol === 'O') {
+    if (value === 'O') {
         displayedSymbol = <OSymbol />;
-    } else if (symbol === 'X') {
+    } else if (value === 'X') {
         displayedSymbol = <XSymbol />;
     }
 
