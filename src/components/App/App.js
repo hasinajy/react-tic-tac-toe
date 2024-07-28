@@ -34,7 +34,7 @@ export default function App() {
         setHistory([...history, newBoardState]);
         setXIsNext(!xIsNext);
         setWinnerPositions(calculateWinner(newBoardState));
-    }, [xIsNext]);
+    }, [history]);
 
     const handleNewGame = useCallback(() => {
         setWinnerPositions(null);
