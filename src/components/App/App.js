@@ -22,14 +22,6 @@ export default function App() {
     const [boardStateIndex, setBoardStateIndex] = useState(0);
     const boardState = history[boardStateIndex];
 
-    const moves = history.map((move, iMove) => {
-        if (iMove !== 0) {
-            return (
-                <Move key={iMove} iMove={iMove} />
-            );
-        }
-    })
-
     const handleCellClick = useCallback((iCell) => {
         if (boardState[iCell] !== WHITE_SPACE || winnerPositions !== null) return;
 
@@ -52,17 +44,17 @@ export default function App() {
         setBoardStateIndex(0);
     }, []);
 
-    const handleUndo = useCallback(() => {
+    const handleUndo = useCallback((undoCount) => {
         if (history.length > 1 && winnerPositions === null) {
-            setNewMoveExists(false);
-
+            const updatedBoardStateIndex = boardStateIndex - undoCount;
             const tempRedoHistory = (redoHistory === null) ? [] : redoHistory.slice();
-            tempRedoHistory.unshift(history[boardStateIndex]);
+            tempRedoHistory.unshift(history.slice(updatedBoardStateIndex + 1));
 
-            setBoardStateIndex(boardStateIndex - 1);
-            setHistory(history.slice(0, boardStateIndex));
+            setNewMoveExists(false);
+            setBoardStateIndex(updatedBoardStateIndex);
+            setHistory(history.slice(0, updatedBoardStateIndex + 1));
             setRedoHistory(tempRedoHistory);
-            setXIsNext(!xIsNext);
+            setXIsNext((undoCount % 2 === 0) ? xIsNext : !xIsNext);
         }
     }, [history]);
 
@@ -77,6 +69,14 @@ export default function App() {
 
         }
     }, [history]);
+
+    const moves = history.map((move, iMove) => {
+        if (iMove !== 0) {
+            return (
+                <Move key={iMove} iMove={iMove} onJumpUndo={() => { handleUndo(boardStateIndex - iMove) }} />
+            );
+        }
+    })
 
     return (
         <BoardStateContext.Provider value={boardState}>

@@ -51,9 +51,9 @@ function History({ moves }) {
     );
 }
 
-export function Move({ iMove }) {
+export function Move({ iMove, onJumpUndo }) {
     return (
-        <button className="history__move">Move #{iMove}</button>
+        <button onClick={onJumpUndo} className="history__move">Move #{iMove}</button>
     );
 }
 
@@ -72,7 +72,7 @@ function MoveControls() {
 
     return (
         <section className="board-controls__move-controls">
-            <MoveControl symbol={<UndoSymbol />} onControlClick={handleUndo} />
+            <MoveControl symbol={<UndoSymbol />} onControlClick={() => { handleUndo(1) }} />
             <MoveControl symbol={<RedoSymbol />} onControlClick={handleRedo} />
         </section>
     );
