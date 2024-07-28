@@ -1,65 +1,64 @@
-import Square from "../Square/Square";
+import { useContext } from "react";
+import { BoardStateContext, HandleCellClickContext } from "../App/App";
 
-export default function Board({ marker, xIsNext, onPlay }) {
-    const winner = calculateWinner(marker);
-    let status;
-
-    if (winner !== null) {
-        status = 'Winner: ' + winner;
-    } else {
-        status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-    }
-
-    const handleCellClick = (i) => {
-        if (marker[i] !== '\u00A0' || calculateWinner(marker) !== null) return;
-
-        const tempMarker = marker.slice();
-        tempMarker[i] = (xIsNext) ? 'X' : 'O';
-
-        onPlay(tempMarker);
-    };
-
+export default function Board() {
     return (
-        <>
-            <div>{status}</div>
-            <div className="board">
-                <Row firstIndex={0} onCellClick={handleCellClick} marker={marker} />
-                <Row firstIndex={3} onCellClick={handleCellClick} marker={marker} />
-                <Row firstIndex={6} onCellClick={handleCellClick} marker={marker} />
-            </div>
-        </>
+        <section className="board">
+            <BoardRow iStart={0} />
+            <BoardRow iStart={3} />
+            <BoardRow iStart={6} />
+        </section>
     );
 }
 
-function Row({ firstIndex, onCellClick, marker }) {
+function BoardRow({ iStart }) {
+    const boardState = useContext(BoardStateContext);
+    const handleCellClick = useContext(HandleCellClickContext);
+
     return (
         <div className="board__row">
-            <Square value={marker[firstIndex]} onClick={() => { onCellClick(firstIndex) }} />
-            <Square value={marker[firstIndex + 1]} onClick={() => { onCellClick(firstIndex + 1) }} />
-            <Square value={marker[firstIndex + 2]} onClick={() => { onCellClick(firstIndex + 2) }} />
+            <BoardSquare value={boardState[iStart]} onCellClick={() => { handleCellClick(iStart) }} />
+            <BoardSquare value={boardState[iStart + 1]} onCellClick={() => { handleCellClick(iStart + 1) }} />
+            <BoardSquare value={boardState[iStart + 2]} onCellClick={() => { handleCellClick(iStart + 2) }} />
         </div>
     );
 }
 
-function calculateWinner(marker) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
+function BoardSquare({ value, onCellClick }) {
+    let displayedSymbol = null;
 
-    for (const line of lines) {
-        const [a, b, c] = line;
-
-        if (marker[a] !== '\u00A0' && marker[a] === marker[b] && marker[a] === marker[c]) {
-            return marker[a];
-        }
+    if (value === 'O') {
+        displayedSymbol = <OSymbol />;
+    } else if (value === 'X') {
+        displayedSymbol = <XSymbol />;
     }
 
-    return null;
+    return (
+        <button onClick={onCellClick} className="board__square">
+            {displayedSymbol}
+        </button>
+    );
+}
+
+export function OSymbol() {
+    return (
+        <svg className="square__symbol square__symbol--O" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 320 320">
+            <g id="Ellipse_1" data-name="Ellipse 1" fill="none" stroke="#000" strokeWidth="64">
+                <circle cx="160" cy="160" r="160" stroke="none" />
+                <circle cx="160" cy="160" r="128" fill="none" />
+            </g>
+        </svg>
+    );
+}
+
+export function XSymbol() {
+    return (
+        <svg className="square__symbol square__symbol--X" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 320 320">
+            <path id="xmark"
+                d="M342.454,150.574A32.017,32.017,0,1,0,297.176,105.3L191.925,210.646,86.574,105.4A32.017,32.017,0,0,0,41.3,150.674L146.646,255.925,41.4,361.276a32.017,32.017,0,0,0,45.279,45.279L191.925,301.2,297.276,406.454a32.017,32.017,0,0,0,45.279-45.279L237.2,255.925Z"
+                transform="translate(-31.925 -95.925)" />
+        </svg>
+    );
 }
