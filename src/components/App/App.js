@@ -8,6 +8,7 @@ export const XIsNextContext = React.createContext();
 export const WinnerPositionsContext = React.createContext();
 export const HandleNewGameContext = React.createContext();
 export const MovesContext = React.createContext();
+export const HandleUndoContext = React.createContext();
 
 const WHITE_SPACE = '\u00A0';
 
@@ -15,7 +16,8 @@ export default function App() {
     const [winnerPositions, setWinnerPositions] = useState(null);
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(WHITE_SPACE)]);
-    const boardState = history[history.length - 1];
+    const [boardStateIndex, setBoardStateIndex] = useState(0);
+    const boardState = history[boardStateIndex];
 
     const moves = history.map((move, iMove) => {
         if (iMove !== 0) {
@@ -32,6 +34,7 @@ export default function App() {
         newBoardState[iCell] = (xIsNext) ? 'X' : 'O';
 
         setHistory([...history, newBoardState]);
+        setBoardStateIndex(boardStateIndex + 1);
         setXIsNext(!xIsNext);
         setWinnerPositions(calculateWinner(newBoardState));
     }, [history]);
@@ -40,7 +43,16 @@ export default function App() {
         setWinnerPositions(null);
         setXIsNext(true);
         setHistory([Array(9).fill(WHITE_SPACE)]);
+        setBoardStateIndex(0);
     }, []);
+
+    const handleUndo = useCallback(() => {
+        if (history.length > 1 && winnerPositions === null) {
+            setHistory(history.slice(0, history.length - 1));
+            setBoardStateIndex(boardStateIndex - 1);
+            setXIsNext(!xIsNext);
+        }
+    }, [history]);
 
     return (
         <BoardStateContext.Provider value={boardState}>
@@ -49,14 +61,16 @@ export default function App() {
                     <WinnerPositionsContext.Provider value={winnerPositions}>
                         <HandleNewGameContext.Provider value={handleNewGame}>
                             <MovesContext.Provider value={moves}>
-                                <h1 className="page-title">Tic-Tac-Toe</h1>
+                                <HandleUndoContext.Provider value={handleUndo}>
+                                    <h1 className="page-title">Tic-Tac-Toe</h1>
 
-                                <hr className="sep--large"></hr>
+                                    <hr className="sep--large"></hr>
 
-                                <div className="container">
-                                    <Board />
-                                    <GameInfo />
-                                </div>
+                                    <div className="container">
+                                        <Board />
+                                        <GameInfo />
+                                    </div>
+                                </HandleUndoContext.Provider>
                             </MovesContext.Provider>
                         </HandleNewGameContext.Provider>
                     </WinnerPositionsContext.Provider>

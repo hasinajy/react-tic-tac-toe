@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OSymbol, XSymbol } from "../Board/Board";
-import { HandleNewGameContext, MovesContext, WinnerPositionsContext, XIsNextContext } from "../App/App";
+import { HandleNewGameContext, HandleUndoContext, MovesContext, WinnerPositionsContext, XIsNextContext } from "../App/App";
 
 export default function GameInfo() {
     return (
@@ -67,17 +67,19 @@ function BoardControls() {
 }
 
 function MoveControls() {
+    const handleUndo = useContext(HandleUndoContext);
+
     return (
         <section className="board-controls__move-controls">
-            <MoveControl symbol={<UndoSymbol />} />
+            <MoveControl symbol={<UndoSymbol />} onControlClick={handleUndo} />
             <MoveControl symbol={<RedoSymbol />} />
         </section>
     );
 }
 
-function MoveControl({ symbol }) {
+function MoveControl({ symbol, onControlClick }) {
     return (
-        <button className="move-controls__undo">{symbol}</button>
+        <button onClick={onControlClick} className="move-controls__undo">{symbol}</button>
     );
 }
 
