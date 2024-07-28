@@ -48,7 +48,7 @@ export default function App() {
         if (history.length > 1 && winnerPositions === null) {
             const updatedBoardStateIndex = boardStateIndex - undoCount;
             const tempRedoHistory = (redoHistory === null) ? [] : redoHistory.slice();
-            tempRedoHistory.unshift(history.slice(updatedBoardStateIndex + 1));
+            tempRedoHistory.unshift(...history.slice(updatedBoardStateIndex + 1));
 
             setNewMoveExists(false);
             setBoardStateIndex(updatedBoardStateIndex);
@@ -60,13 +60,12 @@ export default function App() {
 
     const handleRedo = useCallback(() => {
         if (!newMoveExists && redoHistory !== null && redoHistory.length !== 0) {
-            const tempRedoHistory = redoHistory.slice();
-            console.log(tempRedoHistory);
+            let tempRedoHistory = redoHistory.slice();
+
             setHistory([...history, tempRedoHistory.shift()]);
             setBoardStateIndex(boardStateIndex + 1);
             setRedoHistory(tempRedoHistory);
             setXIsNext(!xIsNext);
-
         }
     }, [history]);
 
