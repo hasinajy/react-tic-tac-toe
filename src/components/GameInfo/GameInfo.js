@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OSymbol, XSymbol } from "../Board/Board";
-import { WinnerPositionsContext, XIsNextContext } from "../App/App";
+import { HandleNewGameContext, WinnerPositionsContext, XIsNextContext } from "../App/App";
 
 export default function GameInfo() {
     return (
@@ -101,7 +101,9 @@ function RedoSymbol() {
 }
 
 function NewGame() {
+    const handleNewGame = useContext(HandleNewGameContext);
+
     return (
-        <button className="board-controls__new-game">New Game</button>
+        <button onClick={handleNewGame} className="board-controls__new-game">New Game</button>
     );
 }

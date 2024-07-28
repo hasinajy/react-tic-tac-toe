@@ -6,6 +6,7 @@ export const BoardStateContext = React.createContext();
 export const HandleCellClickContext = React.createContext();
 export const XIsNextContext = React.createContext();
 export const WinnerPositionsContext = React.createContext();
+export const HandleNewGameContext = React.createContext();
 
 const WHITE_SPACE = '\u00A0';
 
@@ -26,19 +27,27 @@ export default function App() {
         setWinnerPositions(calculateWinner(newBoardState));
     }, [xIsNext]);
 
+    const handleNewGame = useCallback(() => {
+        setWinnerPositions(null);
+        setXIsNext(true);
+        setHistory([Array(9).fill(WHITE_SPACE)]);
+    }, []);
+
     return (
         <BoardStateContext.Provider value={boardState}>
             <HandleCellClickContext.Provider value={handleCellClick}>
                 <XIsNextContext.Provider value={xIsNext}>
                     <WinnerPositionsContext.Provider value={winnerPositions}>
-                        <h1 className="page-title">Tic-Tac-Toe</h1>
+                        <HandleNewGameContext.Provider value={handleNewGame}>
+                            <h1 className="page-title">Tic-Tac-Toe</h1>
 
-                        <hr className="sep--large"></hr>
+                            <hr className="sep--large"></hr>
 
-                        <div className="container">
-                            <Board />
-                            <GameInfo />
-                        </div>
+                            <div className="container">
+                                <Board />
+                                <GameInfo />
+                            </div>
+                        </HandleNewGameContext.Provider>
                     </WinnerPositionsContext.Provider>
                 </XIsNextContext.Provider>
             </HandleCellClickContext.Provider>
