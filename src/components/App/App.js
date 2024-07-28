@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from "react";
 import Board from "../Board/Board";
-import GameInfo from "../GameInfo/GameInfo";
+import GameInfo, { Move } from "../GameInfo/GameInfo";
 
 export const BoardStateContext = React.createContext();
 export const HandleCellClickContext = React.createContext();
 export const XIsNextContext = React.createContext();
 export const WinnerPositionsContext = React.createContext();
 export const HandleNewGameContext = React.createContext();
+export const MovesContext = React.createContext();
 
 const WHITE_SPACE = '\u00A0';
 
@@ -15,6 +16,14 @@ export default function App() {
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(WHITE_SPACE)]);
     const boardState = history[history.length - 1];
+
+    const moves = history.map((move, iMove) => {
+        if (iMove !== 0) {
+            return (
+                <Move key={iMove} iMove={iMove} />
+            );
+        }
+    })
 
     const handleCellClick = useCallback((iCell) => {
         if (boardState[iCell] !== WHITE_SPACE || winnerPositions !== null) return;
@@ -39,14 +48,16 @@ export default function App() {
                 <XIsNextContext.Provider value={xIsNext}>
                     <WinnerPositionsContext.Provider value={winnerPositions}>
                         <HandleNewGameContext.Provider value={handleNewGame}>
-                            <h1 className="page-title">Tic-Tac-Toe</h1>
+                            <MovesContext.Provider value={moves}>
+                                <h1 className="page-title">Tic-Tac-Toe</h1>
 
-                            <hr className="sep--large"></hr>
+                                <hr className="sep--large"></hr>
 
-                            <div className="container">
-                                <Board />
-                                <GameInfo />
-                            </div>
+                                <div className="container">
+                                    <Board />
+                                    <GameInfo />
+                                </div>
+                            </MovesContext.Provider>
                         </HandleNewGameContext.Provider>
                     </WinnerPositionsContext.Provider>
                 </XIsNextContext.Provider>

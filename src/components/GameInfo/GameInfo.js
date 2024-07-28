@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OSymbol, XSymbol } from "../Board/Board";
-import { HandleNewGameContext, WinnerPositionsContext, XIsNextContext } from "../App/App";
+import { HandleNewGameContext, MovesContext, WinnerPositionsContext, XIsNextContext } from "../App/App";
 
 export default function GameInfo() {
     return (
@@ -12,6 +12,7 @@ export default function GameInfo() {
 }
 
 function TurnInfo() {
+    const moves = useContext(MovesContext);
     const winnerPositions = useContext(WinnerPositionsContext);
     const turnDisplay = (winnerPositions !== null) ? <WinnerDisplay /> : <NextTurn />;
 
@@ -19,7 +20,7 @@ function TurnInfo() {
         <section className="game-info__turns">
             {turnDisplay}
             <hr></hr>
-            <History />
+            <History moves={moves} />
         </section>
     );
 }
@@ -50,9 +51,9 @@ function History({ moves }) {
     );
 }
 
-function Move({ moveId }) {
+export function Move({ iMove }) {
     return (
-        <button className="history__move">Move #{moveId}</button>
+        <button className="history__move">Move #{iMove}</button>
     );
 }
 
