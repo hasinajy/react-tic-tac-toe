@@ -9,6 +9,7 @@ This game is a practice project to learn React and started from the [React Tic-T
 - Turn-based between `X` and `O`.
 - Move history.
 - Undo move to any point of the game.
+- Redo move.
 - Winner check.
 
 ## Technologies
