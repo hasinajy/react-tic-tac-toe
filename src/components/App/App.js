@@ -9,6 +9,7 @@ export const WinnerPositionsContext = React.createContext();
 export const HandleNewGameContext = React.createContext();
 export const MovesContext = React.createContext();
 export const HandleUndoContext = React.createContext();
+export const HandleRedoContext = React.createContext();
 
 const WHITE_SPACE = '\u00A0';
 
@@ -16,6 +17,8 @@ export default function App() {
     const [winnerPositions, setWinnerPositions] = useState(null);
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(WHITE_SPACE)]);
+    const [redoHistory, setRedoHistory] = useState(null);
+    const [newMoveExists, setNewMoveExists] = useState(false);
     const [boardStateIndex, setBoardStateIndex] = useState(0);
     const boardState = history[boardStateIndex];
 
@@ -35,6 +38,8 @@ export default function App() {
 
         setHistory([...history, newBoardState]);
         setBoardStateIndex(boardStateIndex + 1);
+        setNewMoveExists(true);
+        setRedoHistory(null);
         setXIsNext(!xIsNext);
         setWinnerPositions(calculateWinner(newBoardState));
     }, [history]);
@@ -43,14 +48,33 @@ export default function App() {
         setWinnerPositions(null);
         setXIsNext(true);
         setHistory([Array(9).fill(WHITE_SPACE)]);
+        setRedoHistory(null);
         setBoardStateIndex(0);
     }, []);
 
     const handleUndo = useCallback(() => {
         if (history.length > 1 && winnerPositions === null) {
-            setHistory(history.slice(0, history.length - 1));
+            setNewMoveExists(false);
+
+            const tempRedoHistory = (redoHistory === null) ? [] : redoHistory.slice();
+            tempRedoHistory.unshift(history[boardStateIndex]);
+
             setBoardStateIndex(boardStateIndex - 1);
+            setHistory(history.slice(0, boardStateIndex));
+            setRedoHistory(tempRedoHistory);
             setXIsNext(!xIsNext);
+        }
+    }, [history]);
+
+    const handleRedo = useCallback(() => {
+        if (!newMoveExists && redoHistory !== null && redoHistory.length !== 0) {
+            const tempRedoHistory = redoHistory.slice();
+            console.log(tempRedoHistory);
+            setHistory([...history, tempRedoHistory.shift()]);
+            setBoardStateIndex(boardStateIndex + 1);
+            setRedoHistory(tempRedoHistory);
+            setXIsNext(!xIsNext);
+
         }
     }, [history]);
 
@@ -62,14 +86,16 @@ export default function App() {
                         <HandleNewGameContext.Provider value={handleNewGame}>
                             <MovesContext.Provider value={moves}>
                                 <HandleUndoContext.Provider value={handleUndo}>
-                                    <h1 className="page-title">Tic-Tac-Toe</h1>
+                                    <HandleRedoContext.Provider value={handleRedo}>
+                                        <h1 className="page-title">Tic-Tac-Toe</h1>
 
-                                    <hr className="sep--large"></hr>
+                                        <hr className="sep--large"></hr>
 
-                                    <div className="container">
-                                        <Board />
-                                        <GameInfo />
-                                    </div>
+                                        <div className="container">
+                                            <Board />
+                                            <GameInfo />
+                                        </div>
+                                    </HandleRedoContext.Provider>
                                 </HandleUndoContext.Provider>
                             </MovesContext.Provider>
                         </HandleNewGameContext.Provider>
