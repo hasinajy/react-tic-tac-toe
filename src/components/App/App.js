@@ -5,44 +5,41 @@ import GameInfo from "../GameInfo/GameInfo";
 export const BoardStateContext = React.createContext();
 export const HandleCellClickContext = React.createContext();
 export const XIsNextContext = React.createContext();
+export const WinnerPositionsContext = React.createContext();
 
 const WHITE_SPACE = '\u00A0';
 
 export default function App() {
+    const [winnerPositions, setWinnerPositions] = useState(null);
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(WHITE_SPACE)]);
     const boardState = history[history.length - 1];
 
     const handleCellClick = useCallback((iCell) => {
-        if (boardState[iCell] !== WHITE_SPACE) return;
-
-        const winResult = calculateWinner(boardState);
-
-        if (winResult !== null) {
-            console.log("Win positions: " + winResult.toString());
-            console.log('Winner: ' + ((xIsNext) ? 'X' : 'O'));
-            return;
-        }
+        if (boardState[iCell] !== WHITE_SPACE || winnerPositions !== null) return;
 
         const newBoardState = boardState.slice();
         newBoardState[iCell] = (xIsNext) ? 'X' : 'O';
 
         setHistory([...history, newBoardState]);
         setXIsNext(!xIsNext);
+        setWinnerPositions(calculateWinner(newBoardState));
     }, [xIsNext]);
 
     return (
         <BoardStateContext.Provider value={boardState}>
             <HandleCellClickContext.Provider value={handleCellClick}>
                 <XIsNextContext.Provider value={xIsNext}>
-                    <h1 className="page-title">Tic-Tac-Toe</h1>
+                    <WinnerPositionsContext.Provider value={winnerPositions}>
+                        <h1 className="page-title">Tic-Tac-Toe</h1>
 
-                    <hr className="sep--large"></hr>
+                        <hr className="sep--large"></hr>
 
-                    <div className="container">
-                        <Board />
-                        <GameInfo />
-                    </div>
+                        <div className="container">
+                            <Board />
+                            <GameInfo />
+                        </div>
+                    </WinnerPositionsContext.Provider>
                 </XIsNextContext.Provider>
             </HandleCellClickContext.Provider>
         </BoardStateContext.Provider>

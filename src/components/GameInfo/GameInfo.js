@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { OSymbol, XSymbol } from "../Board/Board";
-import { XIsNextContext } from "../App/App";
+import { WinnerPositionsContext, XIsNextContext } from "../App/App";
 
 export default function GameInfo() {
     return (
@@ -12,9 +12,12 @@ export default function GameInfo() {
 }
 
 function TurnInfo() {
+    const winnerPositions = useContext(WinnerPositionsContext);
+    const turnDisplay = (winnerPositions !== null) ? <WinnerDisplay /> : <NextTurn />;
+
     return (
         <section className="game-info__turns">
-            <NextTurn />
+            {turnDisplay}
             <hr></hr>
             <History />
         </section>
@@ -27,6 +30,16 @@ function NextTurn() {
     return (
         <section className="game-info__next-turn">
             Next turn:<span className="game-info__symbol-container">{(xIsNext) ? <XSymbol /> : <OSymbol />}</span>
+        </section>
+    );
+}
+
+function WinnerDisplay() {
+    const xIsNext = useContext(XIsNextContext);
+
+    return (
+        <section className="game-info__next-turn">
+            Winner:<span className="game-info__symbol-container">{(xIsNext) ? <OSymbol /> : <XSymbol />}</span>
         </section>
     );
 }
